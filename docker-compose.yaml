@@ -1,0 +1,44 @@
+name: upray
+
+services:
+  liferay:
+    image: liferay/dxp:2025.q3.1
+    user: "root:root"
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+      - "11311:11311"
+    volumes:
+      - ./bundles/deploy:/opt/liferay/deploy
+      - ./bundles/osgi/modules:/opt/liferay/osgi/modules
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - JAVA_VERSION=zulu21
+      - LIFERAY_DISABLE_TRIAL_LICENSE=true
+      - LIFERAY_JPDA_ENABLED=true
+      - LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_DRIVER_UPPERCASEC_LASS_UPPERCASEN_AME=com.mysql.cj.jdbc.Driver
+      - LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_URL=jdbc:mysql://mysql/lportal?useUnicode=true&characterEncoding=UTF-8
+      - LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_USERNAME=root
+      - LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_PASSWORD=root
+      - LIFERAY_MODULE_PERIOD_FRAMEWORK_PERIOD_PROPERTIES_PERIOD_OSGI_PERIOD_CONSOLE=0.0.0.0:11311
+
+  mysql:
+    image: mysql:8.4.6
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3307:3306"
+    volumes:
+      - database:/var/lib/mysql
+    healthcheck:
+      interval: 10s
+      retries: 5
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 5s
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=lportal
+
+volumes:
+  database:
