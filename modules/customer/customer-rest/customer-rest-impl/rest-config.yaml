@@ -1,0 +1,9 @@
+apiDir: "../customer-rest-api/src/main/java"
+apiPackagePath: "com.upray.customer.rest"
+application:
+    baseURI: "/customer-rest"
+    className: "CustomerRestApplication"
+    name: "CustomerRest"
+author: "Matheus Granville"
+clientDir: "../customer-rest-client/src/main/java"
+testDir: "../customer-rest-test/src/testIntegration/java"

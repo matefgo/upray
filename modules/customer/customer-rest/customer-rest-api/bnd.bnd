@@ -1,0 +1,6 @@
+Bundle-Name: customer-rest-api
+Bundle-SymbolicName: com.upray.customer.rest.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.upray.customer.rest.dto.v1_0,\
+	com.upray.customer.rest.resource.v1_0

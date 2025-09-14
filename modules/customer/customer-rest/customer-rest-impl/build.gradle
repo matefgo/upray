@@ -1,0 +1,7 @@
+dependencies {
+	api project(":modules:customer:customer-rest:customer-rest-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+}
+
+group = "com.upray.customer.rest"

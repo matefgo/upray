@@ -1,0 +1,3 @@
+Bundle-Name: customer-rest-client
+Bundle-SymbolicName: com.upray.customer.rest.client
+Bundle-Version: 1.0.0

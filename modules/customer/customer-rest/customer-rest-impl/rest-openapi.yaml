@@ -1,0 +1,38 @@
+info:
+    description: "Customer REST API"
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    title: "CustomerRest"
+    version: v1.0
+openapi: 3.0.1
+components:
+    schemas:
+        Customer:
+            properties:
+                customerId:
+                    format: int64
+                    type: integer
+                name:
+                    type: string
+            type: object
+paths:
+    /customer:
+        get:
+            operationId: Customer
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Customer"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Customer"
+                                type: array
+                    description: Get all Customers
+            tags:
+                - Customer
