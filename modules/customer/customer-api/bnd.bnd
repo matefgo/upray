@@ -1,0 +1,10 @@
+Bundle-Name: customer-api
+Bundle-SymbolicName: com.upray.customer.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.upray.customer.exception,\
+	com.upray.customer.model,\
+	com.upray.customer.service,\
+	com.upray.customer.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../customer-service/service.xml
