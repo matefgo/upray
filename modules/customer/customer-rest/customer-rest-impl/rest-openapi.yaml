@@ -19,7 +19,7 @@ components:
 paths:
     /customer:
         get:
-            operationId: Customer
+            operationId: getCustomers
             responses:
                 "200":
                     content:
