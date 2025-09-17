@@ -251,6 +251,9 @@ public interface CustomerLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Customer> getCustomers(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Customer> getCustomers(String search, int start, int end);
+
 	/**
 	 * Returns the number of customers.
 	 *

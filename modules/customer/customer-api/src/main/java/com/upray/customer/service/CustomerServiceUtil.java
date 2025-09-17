@@ -42,8 +42,10 @@ public class CustomerServiceUtil {
 		return getService().getCustomerByName(name);
 	}
 
-	public static List<Customer> getCustomers(int start, int end) {
-		return getService().getCustomers(start, end);
+	public static List<Customer> getCustomers(
+		String search, int start, int end) {
+
+		return getService().getCustomers(search, start, end);
 	}
 
 	/**

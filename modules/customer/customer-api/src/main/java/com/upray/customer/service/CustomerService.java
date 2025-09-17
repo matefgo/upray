@@ -52,7 +52,7 @@ public interface CustomerService extends BaseService {
 	public Customer getCustomerByName(String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Customer> getCustomers(int start, int end);
+	public List<Customer> getCustomers(String search, int start, int end);
 
 	/**
 	 * Returns the OSGi service identifier.

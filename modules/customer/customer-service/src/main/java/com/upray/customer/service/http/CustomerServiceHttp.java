@@ -176,7 +176,8 @@ public class CustomerServiceHttp {
 	}
 
 	public static java.util.List<com.upray.customer.model.Customer>
-		getCustomers(HttpPrincipal httpPrincipal, int start, int end) {
+		getCustomers(
+			HttpPrincipal httpPrincipal, String search, int start, int end) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -184,7 +185,7 @@ public class CustomerServiceHttp {
 				_getCustomersParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, start, end);
+				methodKey, search, start, end);
 
 			Object returnObj = null;
 
@@ -219,7 +220,7 @@ public class CustomerServiceHttp {
 	private static final Class<?>[] _getCustomerByNameParameterTypes3 =
 		new Class[] {String.class};
 	private static final Class<?>[] _getCustomersParameterTypes4 = new Class[] {
-		int.class, int.class
+		String.class, int.class, int.class
 	};
 
 }

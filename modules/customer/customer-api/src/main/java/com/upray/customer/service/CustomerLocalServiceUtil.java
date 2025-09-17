@@ -274,6 +274,12 @@ public class CustomerLocalServiceUtil {
 		return getService().getCustomers(start, end);
 	}
 
+	public static List<Customer> getCustomers(
+		String search, int start, int end) {
+
+		return getService().getCustomers(search, start, end);
+	}
+
 	/**
 	 * Returns the number of customers.
 	 *

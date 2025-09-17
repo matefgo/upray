@@ -42,9 +42,9 @@ public class CustomerServiceWrapper
 
 	@Override
 	public java.util.List<com.upray.customer.model.Customer> getCustomers(
-		int start, int end) {
+		String search, int start, int end) {
 
-		return _customerService.getCustomers(start, end);
+		return _customerService.getCustomers(search, start, end);
 	}
 
 	/**

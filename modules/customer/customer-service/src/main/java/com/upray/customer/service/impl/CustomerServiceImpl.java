@@ -41,7 +41,8 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
 		return customerLocalService.getCustomer(name);
 	}
 
-	public List<Customer> getCustomers(int start, int end) {
-		return customerLocalService.getCustomers(start, end);
+	public List<Customer> getCustomers(String search, int start, int end) {
+		return customerLocalService.getCustomers(search, start, end);
 	}
+
 }

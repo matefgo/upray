@@ -306,6 +306,13 @@ public class CustomerLocalServiceWrapper
 		return _customerLocalService.getCustomers(start, end);
 	}
 
+	@Override
+	public java.util.List<com.upray.customer.model.Customer> getCustomers(
+		String search, int start, int end) {
+
+		return _customerLocalService.getCustomers(search, start, end);
+	}
+
 	/**
 	 * Returns the number of customers.
 	 *

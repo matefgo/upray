@@ -6,6 +6,8 @@
 package com.upray.customer.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.upray.customer.exception.NoSuchCustomerException;
 import com.upray.customer.model.Customer;
@@ -22,6 +24,21 @@ import java.util.List;
 	service = AopService.class
 )
 public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
+
+	@Override
+	public List<Customer> getCustomers(String search, int start, int end) {
+		if (Validator.isNull(search)) {
+			search = "";
+		}
+
+		DynamicQuery query = dynamicQuery();
+
+		query.add(
+				RestrictionsFactoryUtil.ilike("name", "%" + search + "%")
+		);
+
+        return customerPersistence.findWithDynamicQuery(query, start, end);
+	}
 
 	@Override
 	public Customer addCustomer(String name) {
