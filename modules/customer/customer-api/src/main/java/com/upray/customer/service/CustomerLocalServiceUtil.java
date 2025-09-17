@@ -289,6 +289,10 @@ public class CustomerLocalServiceUtil {
 		return getService().getCustomersCount();
 	}
 
+	public static long getCustomersCount(String search) {
+		return getService().getCustomersCount(search);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext

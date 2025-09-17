@@ -27,17 +27,14 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
 
 	@Override
 	public List<Customer> getCustomers(String search, int start, int end) {
-		if (Validator.isNull(search)) {
-			search = "";
-		}
+		DynamicQuery query = customersDynamicQuery(search);
+		return customerPersistence.findWithDynamicQuery(query, start, end);
+	}
 
-		DynamicQuery query = dynamicQuery();
-
-		query.add(
-				RestrictionsFactoryUtil.ilike("name", "%" + search + "%")
-		);
-
-        return customerPersistence.findWithDynamicQuery(query, start, end);
+	@Override
+	public long getCustomersCount(String search) {
+		DynamicQuery query = customersDynamicQuery(search);
+		return customerPersistence.countWithDynamicQuery(query);
 	}
 
 	@Override
@@ -86,6 +83,20 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
 		Customer customer = customerPersistence.findByName(name).getFirst();
 
 		return customerPersistence.remove(customer);
+	}
+
+	private DynamicQuery customersDynamicQuery(String search) {
+		if (Validator.isNull(search)) {
+			search = "";
+		}
+		
+		DynamicQuery query = dynamicQuery();
+
+		query.add(
+				RestrictionsFactoryUtil.ilike("name", "%" + search + "%")
+		);
+
+		return query;
 	}
 
 	private void validateName(String name) {

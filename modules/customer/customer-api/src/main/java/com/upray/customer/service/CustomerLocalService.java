@@ -263,6 +263,9 @@ public interface CustomerLocalService
 	public int getCustomersCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getCustomersCount(String search);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 

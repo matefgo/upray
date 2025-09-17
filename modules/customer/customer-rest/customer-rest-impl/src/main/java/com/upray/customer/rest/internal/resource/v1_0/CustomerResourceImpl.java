@@ -37,7 +37,7 @@ public class CustomerResourceImpl extends BaseCustomerResourceImpl {
 			response.add(responseCustomer);
 		}
 
-		int customersCount = customerLocalService.getCustomersCount();
+		long customersCount = customerLocalService.getCustomersCount(search);
 
 		return Page.of(response, pagination, customersCount);
 	}

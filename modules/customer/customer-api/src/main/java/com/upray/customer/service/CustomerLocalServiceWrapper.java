@@ -324,6 +324,11 @@ public class CustomerLocalServiceWrapper
 	}
 
 	@Override
+	public long getCustomersCount(String search) {
+		return _customerLocalService.getCustomersCount(search);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
