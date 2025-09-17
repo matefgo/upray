@@ -1,5 +1,6 @@
 <%@ include file="/init.jsp" %>
 
-<p>
-	<b><liferay-ui:message key="customer.caption"/></b>
-</p>
+<frontend-data-set:headless-display
+    apiURL="/o/customer-rest/v1.0/customer"
+	id="<%= CustomerPortletKeys.CUSTOMER %>"
+/>
