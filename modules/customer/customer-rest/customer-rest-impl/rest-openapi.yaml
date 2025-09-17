@@ -20,6 +20,22 @@ paths:
     /customer:
         get:
             operationId: getCustomers
+            parameters:
+                - in: query
+                  name: page
+                  required: false
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  required: false
+                  schema:
+                      type: integer
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
             responses:
                 "200":
                     content:

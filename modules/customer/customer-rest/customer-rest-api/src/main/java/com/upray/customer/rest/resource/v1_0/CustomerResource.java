@@ -10,6 +10,7 @@ import com.liferay.portal.odata.sort.SortParserProvider;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.batch.engine.resource.VulcanBatchEngineImportTaskResource;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 
 import com.upray.customer.rest.dto.v1_0.Customer;
 
@@ -39,7 +40,8 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CustomerResource {
 
-	public Page<Customer> getCustomers() throws Exception;
+	public Page<Customer> getCustomers(String search, Pagination pagination)
+		throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

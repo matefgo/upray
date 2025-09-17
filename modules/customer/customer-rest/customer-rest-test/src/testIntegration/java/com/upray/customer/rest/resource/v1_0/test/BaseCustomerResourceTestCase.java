@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
@@ -33,6 +34,7 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 import com.upray.customer.rest.client.dto.v1_0.Customer;
 import com.upray.customer.rest.client.http.HttpInvoker;
 import com.upray.customer.rest.client.pagination.Page;
+import com.upray.customer.rest.client.pagination.Pagination;
 import com.upray.customer.rest.client.resource.v1_0.CustomerResource;
 import com.upray.customer.rest.client.serdes.v1_0.CustomerSerDes;
 
@@ -174,7 +176,8 @@ public abstract class BaseCustomerResourceTestCase {
 
 	@Test
 	public void testGetCustomers() throws Exception {
-		Page<Customer> page = customerResource.getCustomers();
+		Page<Customer> page = customerResource.getCustomers(
+			null, Pagination.of(1, 10));
 
 		long totalCount = page.getTotalCount();
 
@@ -182,7 +185,7 @@ public abstract class BaseCustomerResourceTestCase {
 
 		Customer customer2 = testGetCustomers_addCustomer(randomCustomer());
 
-		page = customerResource.getCustomers();
+		page = customerResource.getCustomers(null, Pagination.of(1, 10));
 
 		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
@@ -200,6 +203,77 @@ public abstract class BaseCustomerResourceTestCase {
 		return expectedActions;
 	}
 
+	@Test
+	public void testGetCustomersWithPagination() throws Exception {
+		Page<Customer> customersPage = customerResource.getCustomers(
+			null, null);
+
+		int totalCount = GetterUtil.getInteger(customersPage.getTotalCount());
+
+		Customer customer1 = testGetCustomers_addCustomer(randomCustomer());
+
+		Customer customer2 = testGetCustomers_addCustomer(randomCustomer());
+
+		Customer customer3 = testGetCustomers_addCustomer(randomCustomer());
+
+		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
+
+		int pageSizeLimit = 500;
+
+		if (totalCount >= (pageSizeLimit - 2)) {
+			Page<Customer> page1 = customerResource.getCustomers(
+				null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
+					pageSizeLimit));
+
+			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
+
+			assertContains(customer1, (List<Customer>)page1.getItems());
+
+			Page<Customer> page2 = customerResource.getCustomers(
+				null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
+					pageSizeLimit));
+
+			assertContains(customer2, (List<Customer>)page2.getItems());
+
+			Page<Customer> page3 = customerResource.getCustomers(
+				null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
+					pageSizeLimit));
+
+			assertContains(customer3, (List<Customer>)page3.getItems());
+		}
+		else {
+			Page<Customer> page1 = customerResource.getCustomers(
+				null, Pagination.of(1, totalCount + 2));
+
+			List<Customer> customers1 = (List<Customer>)page1.getItems();
+
+			Assert.assertEquals(
+				customers1.toString(), totalCount + 2, customers1.size());
+
+			Page<Customer> page2 = customerResource.getCustomers(
+				null, Pagination.of(2, totalCount + 2));
+
+			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+			List<Customer> customers2 = (List<Customer>)page2.getItems();
+
+			Assert.assertEquals(customers2.toString(), 1, customers2.size());
+
+			Page<Customer> page3 = customerResource.getCustomers(
+				null, Pagination.of(1, (int)totalCount + 3));
+
+			assertContains(customer1, (List<Customer>)page3.getItems());
+			assertContains(customer2, (List<Customer>)page3.getItems());
+			assertContains(customer3, (List<Customer>)page3.getItems());
+		}
+	}
+
 	protected Customer testGetCustomers_addCustomer(Customer customer)
 		throws Exception {
 
@@ -213,6 +287,8 @@ public abstract class BaseCustomerResourceTestCase {
 			"customers",
 			new HashMap<String, Object>() {
 				{
+					put("page", 1);
+					put("pageSize", 10);
 				}
 			},
 			new GraphQLField("items", getGraphQLFields()),

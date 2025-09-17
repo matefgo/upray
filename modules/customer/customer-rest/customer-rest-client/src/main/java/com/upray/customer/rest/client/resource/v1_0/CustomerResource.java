@@ -3,6 +3,7 @@ package com.upray.customer.rest.client.resource.v1_0;
 import com.upray.customer.rest.client.dto.v1_0.Customer;
 import com.upray.customer.rest.client.http.HttpInvoker;
 import com.upray.customer.rest.client.pagination.Page;
+import com.upray.customer.rest.client.pagination.Pagination;
 import com.upray.customer.rest.client.problem.Problem;
 import com.upray.customer.rest.client.serdes.v1_0.CustomerSerDes;
 
@@ -28,9 +29,12 @@ public interface CustomerResource {
 		return new Builder();
 	}
 
-	public Page<Customer> getCustomers() throws Exception;
+	public Page<Customer> getCustomers(String search, Pagination pagination)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse getCustomersHttpResponse() throws Exception;
+	public HttpInvoker.HttpResponse getCustomersHttpResponse(
+			String search, Pagination pagination)
+		throws Exception;
 
 	public static class Builder {
 
@@ -140,8 +144,11 @@ public interface CustomerResource {
 
 	public static class CustomerResourceImpl implements CustomerResource {
 
-		public Page<Customer> getCustomers() throws Exception {
-			HttpInvoker.HttpResponse httpResponse = getCustomersHttpResponse();
+		public Page<Customer> getCustomers(String search, Pagination pagination)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = getCustomersHttpResponse(
+				search, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -202,7 +209,8 @@ public interface CustomerResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getCustomersHttpResponse()
+		public HttpInvoker.HttpResponse getCustomersHttpResponse(
+				String search, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -225,6 +233,17 @@ public interface CustomerResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (pagination != null) {
+				httpInvoker.parameter(
+					"page", String.valueOf(pagination.getPage()));
+				httpInvoker.parameter(
+					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
 
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +

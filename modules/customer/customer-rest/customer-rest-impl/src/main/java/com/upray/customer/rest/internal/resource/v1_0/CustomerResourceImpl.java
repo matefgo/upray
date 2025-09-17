@@ -1,6 +1,8 @@
 package com.upray.customer.rest.internal.resource.v1_0;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.pagination.Page;
+import com.liferay.portal.vulcan.pagination.Pagination;
 import com.upray.customer.rest.dto.v1_0.Customer;
 import com.upray.customer.rest.resource.v1_0.CustomerResource;
 
@@ -20,11 +22,13 @@ import java.util.List;
 	scope = ServiceScope.PROTOTYPE, service = CustomerResource.class
 )
 public class CustomerResourceImpl extends BaseCustomerResourceImpl {
-	@Override
-	public Page<Customer> getCustomers() throws Exception {
-		List<com.upray.customer.model.Customer> customersLists = customerLocalService.getCustomers(-1, -1);
 
-		List<Customer> response = new ArrayList<Customer>();
+	@Override
+	public Page<Customer> getCustomers(String search, Pagination pagination) throws Exception {
+		List<com.upray.customer.model.Customer> customersLists =
+				customerLocalService.getCustomers(search, pagination.getStartPosition(), pagination.getEndPosition());
+
+		List<Customer> response = new ArrayList<>();
 
 		for (com.upray.customer.model.Customer customer : customersLists) {
 			Customer responseCustomer = new Customer();
@@ -33,7 +37,9 @@ public class CustomerResourceImpl extends BaseCustomerResourceImpl {
 			response.add(responseCustomer);
 		}
 
-		return Page.of(response);
+		int customersCount = customerLocalService.getCustomersCount();
+
+		return Page.of(response, pagination, customersCount);
 	}
 
 	@Reference
