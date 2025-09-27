@@ -5,3 +5,4 @@ Export-Package: com.upray.customer.web.constants
 Provide-Capability:\
 	liferay.language.resources;\
 		resource.bundle.base.name="content.Language"
+Web-ContextPath: /customer-web

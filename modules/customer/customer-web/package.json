@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "esbuild": "^0.20.2"
+  },
+  "main": "js/index.js",
+  "name": "customer-web",
+  "scripts": {
+    "build": "esbuild ./src/main/resources/META-INF/resources/js/index.js --bundle --outfile=./build/resources/main/META-INF/resources/__liferay__/index.js --format=esm"
+  },
+  "version": "1.0.0"
+}
