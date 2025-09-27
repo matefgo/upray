@@ -1,0 +1,7 @@
+Bundle-Name: Upray Dashboard Web
+Bundle-SymbolicName: com.upray.dashboard.web
+Bundle-Version: 1.0.0
+Export-Package: com.upray.dashboard.web.constants
+Provide-Capability:\
+	liferay.language.resources;\
+		resource.bundle.base.name="content.Language"
