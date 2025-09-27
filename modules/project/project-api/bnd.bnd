@@ -1,0 +1,10 @@
+Bundle-Name: Upray Project API
+Bundle-SymbolicName: com.upray.project.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.upray.project.exception,\
+	com.upray.project.model,\
+	com.upray.project.service,\
+	com.upray.project.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../project-service/service.xml
