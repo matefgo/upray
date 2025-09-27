@@ -1,5 +1,6 @@
 dependencies {
 	api project(":modules:project:project-api")
+	compileOnly project(":modules:customer:customer-api")
 
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 }
