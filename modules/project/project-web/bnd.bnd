@@ -1,0 +1,7 @@
+Bundle-Name: project-web
+Bundle-SymbolicName: com.upray.project.web
+Bundle-Version: 1.0.0
+Export-Package: com.upray.project.web.constants
+Provide-Capability:\
+	liferay.language.resources;\
+		resource.bundle.base.name="content.Language"
