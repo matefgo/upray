@@ -1,5 +1,6 @@
 <%@ include file="/init.jsp" %>
 
-<p>
-	<b><liferay-ui:message key="project.caption"/></b>
-</p>
+<frontend-data-set:classic-display
+    dataProviderKey="<%= ProjectPortletKeys.PROJECT %>"
+    id="<%= ProjectPortletKeys.PROJECT %>"
+/>
