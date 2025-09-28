@@ -11,6 +11,7 @@ services:
     volumes:
       - ./bundles/deploy:/opt/liferay/deploy
       - ./bundles/osgi/modules:/opt/liferay/osgi/modules
+      - ./bundles/osgi/client-extensions:/opt/liferay/osgi/client-extensions
       - document_library:/opt/liferay/data/document_library
     depends_on:
       mysql:
