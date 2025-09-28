@@ -2,7 +2,8 @@
     "private": true,
     "workspaces": {
         "packages": [
-            "modules/customer/customer-web"
+            "modules/customer/customer-web",
+            "client-extensions/theme"
         ]
     }
 }
