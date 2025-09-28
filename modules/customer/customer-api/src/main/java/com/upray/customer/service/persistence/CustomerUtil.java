@@ -456,7 +456,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns all the customers where name = &#63;.
+	 * Returns all the customers where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @return the matching customers
@@ -466,7 +466,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns a range of all the customers where name = &#63;.
+	 * Returns a range of all the customers where name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CustomerModelImpl</code>.
@@ -482,7 +482,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns an ordered range of all the customers where name = &#63;.
+	 * Returns an ordered range of all the customers where name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CustomerModelImpl</code>.
@@ -502,7 +502,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns an ordered range of all the customers where name = &#63;.
+	 * Returns an ordered range of all the customers where name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CustomerModelImpl</code>.
@@ -524,7 +524,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns the first customer in the ordered set where name = &#63;.
+	 * Returns the first customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -539,7 +539,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns the first customer in the ordered set where name = &#63;.
+	 * Returns the first customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -552,7 +552,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns the last customer in the ordered set where name = &#63;.
+	 * Returns the last customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -567,7 +567,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns the last customer in the ordered set where name = &#63;.
+	 * Returns the last customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -580,7 +580,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns the customers before and after the current customer in the ordered set where name = &#63;.
+	 * Returns the customers before and after the current customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param customerId the primary key of the current customer
 	 * @param name the name
@@ -598,7 +598,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Removes all the customers where name = &#63; from the database.
+	 * Removes all the customers where name LIKE &#63; from the database.
 	 *
 	 * @param name the name
 	 */
@@ -607,7 +607,7 @@ public class CustomerUtil {
 	}
 
 	/**
-	 * Returns the number of customers where name = &#63;.
+	 * Returns the number of customers where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @return the number of matching customers

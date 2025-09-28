@@ -24,7 +24,7 @@
 
 		<!-- Finder methods -->
 		<finder name="Name" return-type="Collection">
-			<finder-column name="name" />
+			<finder-column name="name" comparator="LIKE" />
 		</finder>
 	</entity>
 </service-builder>

@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 
@@ -1194,11 +1195,10 @@ public class CustomerPersistenceImpl
 		"customer.companyId = ?";
 
 	private FinderPath _finderPathWithPaginationFindByName;
-	private FinderPath _finderPathWithoutPaginationFindByName;
-	private FinderPath _finderPathCountByName;
+	private FinderPath _finderPathWithPaginationCountByName;
 
 	/**
-	 * Returns all the customers where name = &#63;.
+	 * Returns all the customers where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @return the matching customers
@@ -1209,7 +1209,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Returns a range of all the customers where name = &#63;.
+	 * Returns a range of all the customers where name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CustomerModelImpl</code>.
@@ -1226,7 +1226,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Returns an ordered range of all the customers where name = &#63;.
+	 * Returns an ordered range of all the customers where name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CustomerModelImpl</code>.
@@ -1247,7 +1247,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Returns an ordered range of all the customers where name = &#63;.
+	 * Returns an ordered range of all the customers where name LIKE &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>CustomerModelImpl</code>.
@@ -1270,18 +1270,8 @@ public class CustomerPersistenceImpl
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-			(orderByComparator == null)) {
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByName;
-				finderArgs = new Object[] {name};
-			}
-		}
-		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByName;
-			finderArgs = new Object[] {name, start, end, orderByComparator};
-		}
+		finderPath = _finderPathWithPaginationFindByName;
+		finderArgs = new Object[] {name, start, end, orderByComparator};
 
 		List<Customer> list = null;
 
@@ -1291,7 +1281,9 @@ public class CustomerPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Customer customer : list) {
-					if (!name.equals(customer.getName())) {
+					if (!StringUtil.wildcardMatches(
+							customer.getName(), name, '_', '%', '\\', true)) {
+
 						list = null;
 
 						break;
@@ -1368,7 +1360,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Returns the first customer in the ordered set where name = &#63;.
+	 * Returns the first customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1390,7 +1382,7 @@ public class CustomerPersistenceImpl
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("name=");
+		sb.append("nameLIKE");
 		sb.append(name);
 
 		sb.append("}");
@@ -1399,7 +1391,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Returns the first customer in the ordered set where name = &#63;.
+	 * Returns the first customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1419,7 +1411,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Returns the last customer in the ordered set where name = &#63;.
+	 * Returns the last customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1441,7 +1433,7 @@ public class CustomerPersistenceImpl
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		sb.append("name=");
+		sb.append("nameLIKE");
 		sb.append(name);
 
 		sb.append("}");
@@ -1450,7 +1442,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Returns the last customer in the ordered set where name = &#63;.
+	 * Returns the last customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -1477,7 +1469,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Returns the customers before and after the current customer in the ordered set where name = &#63;.
+	 * Returns the customers before and after the current customer in the ordered set where name LIKE &#63;.
 	 *
 	 * @param customerId the primary key of the current customer
 	 * @param name the name
@@ -1640,7 +1632,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Removes all the customers where name = &#63; from the database.
+	 * Removes all the customers where name LIKE &#63; from the database.
 	 *
 	 * @param name the name
 	 */
@@ -1654,7 +1646,7 @@ public class CustomerPersistenceImpl
 	}
 
 	/**
-	 * Returns the number of customers where name = &#63;.
+	 * Returns the number of customers where name LIKE &#63;.
 	 *
 	 * @param name the name
 	 * @return the number of matching customers
@@ -1663,7 +1655,7 @@ public class CustomerPersistenceImpl
 	public int countByName(String name) {
 		name = Objects.toString(name, "");
 
-		FinderPath finderPath = _finderPathCountByName;
+		FinderPath finderPath = _finderPathWithPaginationCountByName;
 
 		Object[] finderArgs = new Object[] {name};
 
@@ -1716,10 +1708,10 @@ public class CustomerPersistenceImpl
 	}
 
 	private static final String _FINDER_COLUMN_NAME_NAME_2 =
-		"customer.name = ?";
+		"customer.name LIKE ?";
 
 	private static final String _FINDER_COLUMN_NAME_NAME_3 =
-		"(customer.name IS NULL OR customer.name = '')";
+		"(customer.name IS NULL OR customer.name LIKE '')";
 
 	public CustomerPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
@@ -2320,12 +2312,8 @@ public class CustomerPersistenceImpl
 			},
 			new String[] {"name"}, true);
 
-		_finderPathWithoutPaginationFindByName = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByName",
-			new String[] {String.class.getName()}, new String[] {"name"}, true);
-
-		_finderPathCountByName = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
+		_finderPathWithPaginationCountByName = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByName",
 			new String[] {String.class.getName()}, new String[] {"name"},
 			false);
 
