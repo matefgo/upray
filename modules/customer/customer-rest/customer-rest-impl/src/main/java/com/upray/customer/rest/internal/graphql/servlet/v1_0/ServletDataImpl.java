@@ -30,6 +30,9 @@ public class ServletDataImpl implements ServletData {
 
 	@Activate
 	public void activate(BundleContext bundleContext) {
+		Mutation.setCustomerResourceComponentServiceObjects(
+			_customerResourceComponentServiceObjects);
+
 		Query.setCustomerResourceComponentServiceObjects(
 			_customerResourceComponentServiceObjects);
 	}
@@ -68,6 +71,23 @@ public class ServletDataImpl implements ServletData {
 		_resourceMethodObjectValuePairs =
 			new HashMap<String, ObjectValuePair<Class<?>, String>>() {
 				{
+					put(
+						"mutation#addCustomer",
+						new ObjectValuePair<>(
+							CustomerResourceImpl.class, "addCustomer"));
+					put(
+						"mutation#deleteCustomer",
+						new ObjectValuePair<>(
+							CustomerResourceImpl.class, "deleteCustomer"));
+					put(
+						"mutation#deleteCustomerBatch",
+						new ObjectValuePair<>(
+							CustomerResourceImpl.class, "deleteCustomerBatch"));
+					put(
+						"mutation#updateCustomer",
+						new ObjectValuePair<>(
+							CustomerResourceImpl.class, "updateCustomer"));
+
 					put(
 						"query#customers",
 						new ObjectValuePair<>(

@@ -1,6 +1,6 @@
 package com.upray.customer.rest.internal.resource.v1_0;
 
-import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.xmlrpc.Response;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.upray.customer.rest.dto.v1_0.Customer;
@@ -31,15 +31,43 @@ public class CustomerResourceImpl extends BaseCustomerResourceImpl {
 		List<Customer> response = new ArrayList<>();
 
 		for (com.upray.customer.model.Customer customer : customersLists) {
-			Customer responseCustomer = new Customer();
-			responseCustomer.setCustomerId(customer.getCustomerId());
-			responseCustomer.setName(customer.getName());
-			response.add(responseCustomer);
+			response.add(convertToDTO(customer));
 		}
 
 		long customersCount = customerLocalService.getCustomersCount(search);
 
 		return Page.of(response, pagination, customersCount);
+	}
+
+	@Override
+	public Customer addCustomer(Customer customer) throws Exception {
+		com.upray.customer.model.Customer newCustomer = customerLocalService.addCustomer(customer.getName());
+
+		return convertToDTO(newCustomer);
+	}
+
+	@Override
+	public Customer deleteCustomer(String customerName) throws Exception {
+		com.upray.customer.model.Customer deletedCustomer = customerLocalService.deleteCustomer(customerName);
+
+		return convertToDTO(deletedCustomer);
+	}
+
+	@Override
+	public Customer updateCustomer(Integer customerId, Customer customer) throws Exception {
+		com.upray.customer.model.Customer updatedCustomer =
+				customerLocalService.updateCustomer(customerId, customer.getName());
+
+		return convertToDTO(updatedCustomer);
+	}
+
+	private Customer convertToDTO(com.upray.customer.model.Customer customer) {
+		Customer customerDto = new Customer();
+
+		customerDto.setCustomerId(String.valueOf(customer.getCustomerId()));
+		customerDto.setName(customer.getName());
+
+		return customerDto;
 	}
 
 	@Reference

@@ -11,8 +11,7 @@ components:
         Customer:
             properties:
                 customerId:
-                    format: int64
-                    type: integer
+                    type: string
                 name:
                     type: string
             type: object
@@ -50,5 +49,76 @@ paths:
                                     $ref: "#/components/schemas/Customer"
                                 type: array
                     description: Get all Customers
+            tags:
+                - Customer
+        post:
+            operationId: addCustomer
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Customer"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Customer"
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Customer"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Customer"
+            tags:
+                - Customer
+    "/customer/{customerName}":
+        delete:
+            operationId: deleteCustomer
+            parameters:
+                - in: path
+                  name: customerName
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                204:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Customer"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Customer"
+            tags:
+                - Customer
+    "/customer/{customerId}":
+        put:
+            operationId: updateCustomer
+            parameters:
+                - in: path
+                  name: customerId
+                  required: true
+                  schema:
+                      type: integer
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Customer"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Customer"
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Customer"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Customer"
             tags:
                 - Customer

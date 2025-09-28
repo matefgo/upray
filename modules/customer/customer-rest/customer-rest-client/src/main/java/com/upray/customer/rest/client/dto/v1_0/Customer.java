@@ -20,16 +20,16 @@ public class Customer implements Cloneable, Serializable {
 		return CustomerSerDes.toDTO(json);
 	}
 
-	public Long getCustomerId() {
+	public String getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Long customerId) {
+	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
 
 	public void setCustomerId(
-		UnsafeSupplier<Long, Exception> customerIdUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> customerIdUnsafeSupplier) {
 
 		try {
 			customerId = customerIdUnsafeSupplier.get();
@@ -39,7 +39,7 @@ public class Customer implements Cloneable, Serializable {
 		}
 	}
 
-	protected Long customerId;
+	protected String customerId;
 
 	public String getName() {
 		return name;

@@ -46,7 +46,11 @@ public class CustomerSerDes {
 
 			sb.append("\"customerId\": ");
 
-			sb.append(customer.getCustomerId());
+			sb.append("\"");
+
+			sb.append(_escape(customer.getCustomerId()));
+
+			sb.append("\"");
 		}
 
 		if (customer.getName() != null) {
@@ -129,8 +133,7 @@ public class CustomerSerDes {
 
 			if (Objects.equals(jsonParserFieldName, "customerId")) {
 				if (jsonParserFieldValue != null) {
-					customer.setCustomerId(
-						Long.valueOf((String)jsonParserFieldValue));
+					customer.setCustomerId((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "name")) {

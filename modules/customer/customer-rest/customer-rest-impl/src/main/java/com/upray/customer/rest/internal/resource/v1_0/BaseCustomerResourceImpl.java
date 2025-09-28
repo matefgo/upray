@@ -52,6 +52,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import jakarta.ws.rs.core.MultivaluedHashMap;
 import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
 /**
@@ -63,6 +64,105 @@ import jakarta.ws.rs.core.UriInfo;
 public abstract class BaseCustomerResourceImpl
 	implements CustomerResource, EntityModelResource,
 			   VulcanBatchEngineTaskItemDelegate<Customer> {
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/customer-rest/v1.0/customer' -d $'{"customerId": ___, "name": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Customer")}
+	)
+	@jakarta.ws.rs.Consumes({"application/json", "application/xml"})
+	@jakarta.ws.rs.Path("/customer")
+	@jakarta.ws.rs.POST
+	@jakarta.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public Customer addCustomer(Customer customer) throws Exception {
+		return new Customer();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/customer-rest/v1.0/customer/{customerName}'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "customerName"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Customer")}
+	)
+	@jakarta.ws.rs.DELETE
+	@jakarta.ws.rs.Path("/customer/{customerName}")
+	@jakarta.ws.rs.Produces({"application/json", "application/xml"})
+	@Override
+	public Customer deleteCustomer(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@jakarta.validation.constraints.NotNull
+			@jakarta.ws.rs.PathParam("customerName")
+			String customerName)
+		throws Exception {
+
+		return new Customer();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'DELETE' 'http://localhost:8080/o/customer-rest/v1.0/customer/{customerName}/batch'  -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "customerName"
+			),
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY,
+				name = "callbackURL"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Customer")}
+	)
+	@jakarta.ws.rs.Consumes("application/json")
+	@jakarta.ws.rs.DELETE
+	@jakarta.ws.rs.Path("/customer/{customerName}/batch")
+	@jakarta.ws.rs.Produces("application/json")
+	@Override
+	public Response deleteCustomerBatch(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@jakarta.validation.constraints.NotNull
+			@jakarta.ws.rs.PathParam("customerName")
+			String customerName,
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@jakarta.ws.rs.QueryParam("callbackURL")
+			String callbackURL,
+			Object object)
+		throws Exception {
+
+		vulcanBatchEngineImportTaskResource.setContextAcceptLanguage(
+			contextAcceptLanguage);
+		vulcanBatchEngineImportTaskResource.setContextCompany(contextCompany);
+		vulcanBatchEngineImportTaskResource.setContextHttpServletRequest(
+			contextHttpServletRequest);
+		vulcanBatchEngineImportTaskResource.setContextUriInfo(contextUriInfo);
+		vulcanBatchEngineImportTaskResource.setContextUser(contextUser);
+
+		Response.ResponseBuilder responseBuilder = Response.accepted();
+
+		return responseBuilder.entity(
+			vulcanBatchEngineImportTaskResource.deleteImportTask(
+				Customer.class.getName(), callbackURL, object)
+		).build();
+	}
 
 	/**
 	 * Invoke this method with the command line:
@@ -102,6 +202,38 @@ public abstract class BaseCustomerResourceImpl
 		return Page.of(Collections.emptyList());
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/customer-rest/v1.0/customer/{customerId}' -d $'{"customerId": ___, "name": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@io.swagger.v3.oas.annotations.Parameters(
+		value = {
+			@io.swagger.v3.oas.annotations.Parameter(
+				in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+				name = "customerId"
+			)
+		}
+	)
+	@io.swagger.v3.oas.annotations.tags.Tags(
+		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Customer")}
+	)
+	@jakarta.ws.rs.Consumes({"application/json", "application/xml"})
+	@jakarta.ws.rs.Path("/customer/{customerId}")
+	@jakarta.ws.rs.Produces({"application/json", "application/xml"})
+	@jakarta.ws.rs.PUT
+	@Override
+	public Customer updateCustomer(
+			@io.swagger.v3.oas.annotations.Parameter(hidden = true)
+			@jakarta.validation.constraints.NotNull
+			@jakarta.ws.rs.PathParam("customerId")
+			Integer customerId,
+			Customer customer)
+		throws Exception {
+
+		return new Customer();
+	}
+
 	@Override
 	@SuppressWarnings("PMD.UnusedLocalVariable")
 	public void create(
@@ -119,8 +251,26 @@ public abstract class BaseCustomerResourceImpl
 			Map<String, Serializable> parameters)
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		UnsafeFunction<Customer, Customer, Exception> customerUnsafeFunction =
+			customer -> {
+				deleteCustomer(customer.getCustomerId());
+
+				return customer;
+			};
+
+		if (contextBatchUnsafeBiConsumer != null) {
+			contextBatchUnsafeBiConsumer.accept(
+				customers, customerUnsafeFunction);
+		}
+		else if (contextBatchUnsafeConsumer != null) {
+			contextBatchUnsafeConsumer.accept(
+				customers, customerUnsafeFunction::apply);
+		}
+		else {
+			for (Customer customer : customers) {
+				customerUnsafeFunction.apply(customer);
+			}
+		}
 	}
 
 	public Set<String> getAvailableCreateStrategies() {

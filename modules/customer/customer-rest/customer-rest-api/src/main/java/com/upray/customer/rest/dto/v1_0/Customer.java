@@ -42,7 +42,7 @@ public class Customer implements Serializable {
 	}
 
 	@io.swagger.v3.oas.annotations.media.Schema
-	public Long getCustomerId() {
+	public String getCustomerId() {
 		if (_customerIdSupplier != null) {
 			customerId = _customerIdSupplier.get();
 
@@ -52,7 +52,7 @@ public class Customer implements Serializable {
 		return customerId;
 	}
 
-	public void setCustomerId(Long customerId) {
+	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 
 		_customerIdSupplier = null;
@@ -60,7 +60,7 @@ public class Customer implements Serializable {
 
 	@JsonIgnore
 	public void setCustomerId(
-		UnsafeSupplier<Long, Exception> customerIdUnsafeSupplier) {
+		UnsafeSupplier<String, Exception> customerIdUnsafeSupplier) {
 
 		_customerIdSupplier = () -> {
 			try {
@@ -77,10 +77,10 @@ public class Customer implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long customerId;
+	protected String customerId;
 
 	@JsonIgnore
-	private Supplier<Long> _customerIdSupplier;
+	private Supplier<String> _customerIdSupplier;
 
 	@io.swagger.v3.oas.annotations.media.Schema
 	public String getName() {
@@ -148,7 +148,7 @@ public class Customer implements Serializable {
 
 		sb.append("{");
 
-		Long customerId = getCustomerId();
+		String customerId = getCustomerId();
 
 		if (customerId != null) {
 			if (sb.length() > 1) {
@@ -157,7 +157,11 @@ public class Customer implements Serializable {
 
 			sb.append("\"customerId\": ");
 
-			sb.append(customerId);
+			sb.append("\"");
+
+			sb.append(_escape(customerId));
+
+			sb.append("\"");
 		}
 
 		String name = getName();

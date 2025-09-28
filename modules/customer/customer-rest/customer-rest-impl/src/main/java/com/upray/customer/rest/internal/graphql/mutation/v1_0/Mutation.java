@@ -5,6 +5,12 @@ import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.batch.engine.resource.VulcanBatchEngineImportTaskResource;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import com.upray.customer.rest.dto.v1_0.Customer;
+import com.upray.customer.rest.resource.v1_0.CustomerResource;
 
 import java.util.function.BiFunction;
 
@@ -13,6 +19,7 @@ import jakarta.annotation.Generated;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.ComponentServiceObjects;
@@ -23,6 +30,62 @@ import org.osgi.service.component.ComponentServiceObjects;
  */
 @Generated("")
 public class Mutation {
+
+	public static void setCustomerResourceComponentServiceObjects(
+		ComponentServiceObjects<CustomerResource>
+			customerResourceComponentServiceObjects) {
+
+		_customerResourceComponentServiceObjects =
+			customerResourceComponentServiceObjects;
+	}
+
+	@GraphQLField
+	public Customer addCustomer(@GraphQLName("customer") Customer customer)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_customerResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			customerResource -> customerResource.addCustomer(customer));
+	}
+
+	@GraphQLField
+	public Customer deleteCustomer(
+			@GraphQLName("customerName") String customerName)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_customerResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			customerResource -> customerResource.deleteCustomer(customerName));
+	}
+
+	@GraphQLField
+	public Response deleteCustomerBatch(
+			@GraphQLName("customerName") String customerName,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_customerResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			customerResource -> customerResource.deleteCustomerBatch(
+				customerName, callbackURL, object));
+	}
+
+	@GraphQLField
+	public Customer updateCustomer(
+			@GraphQLName("customerId") Integer customerId,
+			@GraphQLName("customer") Customer customer)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_customerResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			customerResource -> customerResource.updateCustomer(
+				customerId, customer));
+	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
@@ -62,6 +125,25 @@ public class Mutation {
 		}
 	}
 
+	private void _populateResourceContext(CustomerResource customerResource)
+		throws Exception {
+
+		customerResource.setContextAcceptLanguage(_acceptLanguage);
+		customerResource.setContextCompany(_company);
+		customerResource.setContextHttpServletRequest(_httpServletRequest);
+		customerResource.setContextHttpServletResponse(_httpServletResponse);
+		customerResource.setContextUriInfo(_uriInfo);
+		customerResource.setContextUser(_user);
+		customerResource.setGroupLocalService(_groupLocalService);
+		customerResource.setRoleLocalService(_roleLocalService);
+
+		customerResource.setVulcanBatchEngineImportTaskResource(
+			_vulcanBatchEngineImportTaskResource);
+	}
+
+	private static ComponentServiceObjects<CustomerResource>
+		_customerResourceComponentServiceObjects;
+
 	private AcceptLanguage _acceptLanguage;
 	private com.liferay.portal.kernel.model.Company _company;
 	private GroupLocalService _groupLocalService;
@@ -72,5 +154,7 @@ public class Mutation {
 		_sortsBiFunction;
 	private UriInfo _uriInfo;
 	private com.liferay.portal.kernel.model.User _user;
+	private VulcanBatchEngineImportTaskResource
+		_vulcanBatchEngineImportTaskResource;
 
 }

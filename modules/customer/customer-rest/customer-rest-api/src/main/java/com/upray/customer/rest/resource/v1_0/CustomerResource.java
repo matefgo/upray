@@ -24,6 +24,7 @@ import jakarta.annotation.Generated;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -40,7 +41,18 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface CustomerResource {
 
+	public Customer addCustomer(Customer customer) throws Exception;
+
+	public Customer deleteCustomer(String customerName) throws Exception;
+
+	public Response deleteCustomerBatch(
+			String customerName, String callbackURL, Object object)
+		throws Exception;
+
 	public Page<Customer> getCustomers(String search, Pagination pagination)
+		throws Exception;
+
+	public Customer updateCustomer(Integer customerId, Customer customer)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(
