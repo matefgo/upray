@@ -24,13 +24,13 @@ public class ProjectFDSDataView extends BaseTableFDSView {
         return fdsTableSchemaBuilder.add(
                 "name", "name"
         ).add(
-                "originalVersion", "Original version"
+                "originalVersion", "original-version"
         ).add(
-                "upgradeVersion", "Upgrade version"
+                "upgradeVersion", "upgrade-version"
         ).add(
-                "status", "Status"
+                "status", "status"
         ).add(
-                "phase", "Current phase"
+                "phase", "current-phase"
         ).build();
     }
 

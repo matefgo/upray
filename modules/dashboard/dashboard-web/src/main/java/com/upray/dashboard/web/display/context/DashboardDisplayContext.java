@@ -35,7 +35,7 @@ public class DashboardDisplayContext {
                 new SearchContainer<>(
                         _renderRequest,
                         _renderResponse.createRenderURL(), null,
-                        "There are no projects.");
+                        "there-are-no-projects");
 
         List<Project> projectsList =
                 ProjectLocalServiceUtil.getProjects(
