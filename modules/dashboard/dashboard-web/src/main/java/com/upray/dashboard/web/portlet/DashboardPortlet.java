@@ -1,15 +1,12 @@
 package com.upray.dashboard.web.portlet;
 
-import com.upray.dashboard.web.constants.DashboardPortletKeys;
-
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-
+import com.upray.dashboard.web.constants.DashboardPortletKeys;
 import jakarta.portlet.Portlet;
-
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author me
+ * @author Matheus Granville
  */
 @Component(
 	property = {
