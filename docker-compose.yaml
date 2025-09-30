@@ -12,7 +12,7 @@ services:
       - ./bundles/deploy:/opt/liferay/deploy
       - ./bundles/osgi/modules:/opt/liferay/osgi/modules
       - ./bundles/osgi/client-extensions:/opt/liferay/osgi/client-extensions
-      - document_library:/opt/liferay/data/document_library
+      - ./docker-compose/document_library:/opt/liferay/data/document_library
     depends_on:
       mysql:
         condition: service_healthy
@@ -33,6 +33,7 @@ services:
       - "3307:3306"
     volumes:
       - database:/var/lib/mysql
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     healthcheck:
       interval: 10s
       retries: 5
@@ -44,4 +45,3 @@ services:
 
 volumes:
   database:
-  document_library:
