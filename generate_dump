@@ -1,0 +1,8 @@
+mkdir ./docker-compose/mysql/old
+
+mv ./docker-compose/mysql/*.sql ./docker-compose/mysql/old/
+
+docker compose exec -T mysql \
+   sh -c 'mysqldump -u root -p"$MYSQL_ROOT_PASSWORD" --databases lportal' \
+   > ./docker-compose/mysql/dump_$(date +%F_%H-%M-%S).sql
+
