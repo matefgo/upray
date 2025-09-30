@@ -8,4 +8,5 @@ public class CustomerPortletKeys {
 	public static final String CUSTOMER =
 		"com_upray_customer_web_CustomerPortlet";
 
+	public static final String DISPLAY_CONTEXT = CUSTOMER + "DisplayContext";
 }

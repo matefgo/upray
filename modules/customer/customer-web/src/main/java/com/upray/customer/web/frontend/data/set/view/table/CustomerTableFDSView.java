@@ -22,7 +22,8 @@ public class CustomerTableFDSView extends BaseTableFDSView {
                 _fdsTableSchemaBuilderFactory.create();
 
         return fdsTableSchemaBuilder.add(
-                "name", "name"
+                "name",
+                "name"
         ).build();
     }
 
