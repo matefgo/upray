@@ -1,7 +1,8 @@
 upray-favicon:
   name: Upray Favicon
   type: themeFavicon
-  url: favicon.ico
+  url: upray-favicon.ico
+  description: The icon used in the theme
 assemble:
   - from: assets
     into: static

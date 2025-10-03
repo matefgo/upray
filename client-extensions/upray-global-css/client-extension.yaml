@@ -1,0 +1,10 @@
+assemble:
+  - from: assets
+    hashify: global.css
+    into: static
+upray-global-css:
+  name: Upray Global CSS
+  scope: company
+  type: globalCSS
+  url: global.*.css
+  description: The global CSS responsible for the customization of the control panel

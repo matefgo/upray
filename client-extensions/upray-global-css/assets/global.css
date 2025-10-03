@@ -1,0 +1,111 @@
+:root {
+    --upray-primary: var(--brand-color-3);
+    --upray-secondary: #16C6FF;
+}
+
+#wrapper {
+    background-color: var(--gray-100);
+}
+
+html:not(#__):not(#___) body {
+    .cadmin {
+        &.lfr-product-menu-panel.sidenav-fixed.sidenav-menu-slider {
+            &.open.product-menu-open {
+                width: 220px;
+
+                ~ #wrapper,
+                ~ div > #wrapper,
+                ~ div > nav {
+                    padding-left: 220px;
+                    background-color: var(--gray-100);
+                }
+            }
+
+            .product-menu.sidebar.sidenav-menu {
+                width: inherit;
+
+                div.panel-header {
+
+                    .panel-title {
+                        div.autofit-col {
+                            width: 100%;
+                            padding: 8px;
+
+                            &:has(.site-name), &:has(button) {
+                                display: none;
+                            }
+
+                            .site-administration--header-no-collapsible {
+                                background-image: url(./logo-white.svg) !important;
+                                background-position-x: left;
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+
+                div.panel-body {
+                    button[id$="pagesTreeSidenavToggleId"] {
+                        display: none;
+                    }
+                }
+
+                ul li.list-group {
+                    a.list-group-heading.panel-header:not(.collapsed) {
+                        color: var(--upray-primary);
+                        background-color: var(--gray-100);
+                    }
+
+                    div.list-group-item {
+                        margin-bottom: 8px;
+                        border-top-left-radius: 0px;
+                        border-top-right-radius: 0px;
+                        background-color: var(--gray-100);
+                        padding-left: 8px;
+
+                        a {
+                            color: var(--gray-600);
+                            border-radius: 4px;
+
+                            &:hover {
+                                color: var(--upray-primary);
+                                background-color: var(--gray-300);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        div.control-menu {
+            background-color: var(--gray-100);
+
+            .control-menu-nav-link {
+                color: var(--gray-500);
+
+                &:hover {
+                    color: var(--upray-primary);
+                    background-color: var(--gray-300);
+                }
+
+                &:focus {
+                    color: var(--upray-secondary);
+                }
+            }
+        }
+    }
+
+    .cadmin div.control-menu .control-menu-level-1-heading {
+        color: var(--upray-primary);
+    }
+
+    &:is(.public-page) {
+        .cadmin div.control-menu .control-menu-level-1-heading {
+            display: none !important;
+
+            ~ span {
+                display: none !important;
+            }
+        }
+    }
+}

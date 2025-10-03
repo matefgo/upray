@@ -3,7 +3,7 @@
     "workspaces": {
         "packages": [
             "modules/customer/customer-web",
-            "client-extensions/theme"
+            "client-extensions/upray-theme"
         ]
     }
 }
