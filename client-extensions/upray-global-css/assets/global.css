@@ -1,5 +1,5 @@
 :root {
-    --upray-primary: var(--brand-color-3);
+    --upray-primary: #0c2647;
     --upray-secondary: #16C6FF;
 }
 
@@ -23,8 +23,10 @@ html:not(#__):not(#___) body {
 
             .product-menu.sidebar.sidenav-menu {
                 width: inherit;
+                background-color: var(--upray-primary);
 
                 div.panel-header {
+                    background-color: var(--upray-primary);
 
                     .panel-title {
                         div.autofit-col {
